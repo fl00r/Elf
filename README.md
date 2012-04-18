@@ -1,6 +1,6 @@
 # Elf
 
-TODO: Write a gem description
+Elves are creatures to manage background processes.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Elves are creatures to manage background processes.
 
 ## Contributing
 
