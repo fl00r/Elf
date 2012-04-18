@@ -20,7 +20,7 @@ Or install it yourself as:
 
 This code will run 4 parallel processes and will work about 10 seconds
 
-``ruby
+```ruby
 require 'elf'
 
 Elf.new do |elf|
@@ -29,11 +29,11 @@ Elf.new do |elf|
   elf.fork("sleep 10")
   elf.fork("sleep 10")
 end
-``
+```
 
 And this will run each process one by one
 
-``ruby
+```ruby
 require 'elf'
 
 Elf.new do |elf|
@@ -42,7 +42,7 @@ Elf.new do |elf|
   elf.sync("sleep 10")
   elf.sync("sleep 10")
 end
-``
+```
 
 So why do we need this?
 
@@ -54,7 +54,7 @@ You have got this task:
 2. Parse them and save to database
 3. Then you need to combine all this new data and get new big XML file
 
-``ruby
+```ruby
 Elf.new do |elf|
   # let's asynchronously download files and after file is downloaded we will start parse it
   elf.fork("wget file1.xml") do |f|
@@ -70,7 +70,7 @@ Elf.new do |elf|
   # Here we are waiting while all data downloaded and parsed and then start new rake task for generating new xml
   elf.sync("rake generate_new_xml")
 end
-``
+```
 
 ## Contributing
 
