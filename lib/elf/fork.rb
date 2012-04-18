@@ -1,10 +1,12 @@
 module Elf
   class Fork < Child
-    alias :sync_fire :fire
 
+    #
+    # We can't use Thread's here. because the don't work :)
+    #
     def fire
       fork do
-        sync_fire
+        super
       end
     end
 

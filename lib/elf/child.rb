@@ -2,17 +2,23 @@ module Elf
   class Child
     def initialize(cmd)
       @cmd = cmd
-      fire
     end
 
-    def success=(&blk)
+    def on_success(&blk)
       @success = blk
-      success if @status.exitstatus == 0
+      if @status && @status.exitstatus == 0
+        success
+      end
     end
 
     def success
       puts "Success: #{@cmd}"
-      @success.call if @success
+      if @success
+        fork do
+          @success.call
+        end
+        ::Process.waitall
+      end
     end
 
     def error
@@ -20,8 +26,8 @@ module Elf
     end
 
     def fire
+      puts "Fired: #{@cmd}"
       fork_pid = ::Process.fork do
-        puts "Fired: #{@cmd}"
         exec @cmd
       end
       pid, @status = ::Process.waitpid2(fork_pid)

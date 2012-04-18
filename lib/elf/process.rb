@@ -2,15 +2,19 @@ module Elf
   class Process
     def initialize(&blk)
       blk.call(self)
-      st = ::Process.waitall
+      ::Process.waitall
     end
 
     def fork(cmd)
-      Elf::Fork.new(cmd)
+      elf = Elf::Fork.new(cmd)
+      yield elf if block_given?
+      elf.fire
     end
 
     def sync(cmd)
-      Elf::Sync.new(cmd)
+      elf = Elf::Sync.new(cmd)
+      yield elf if block_given?
+      elf.fire
     end
   end
 end
