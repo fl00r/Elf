@@ -1,8 +1,8 @@
 require "elf/version"
 require "elf/process"
-require "elf/process/child"
-require "elf/process/fork"
-require "elf/process/sync"
+require "elf/child"
+require "elf/fork"
+require "elf/sync"
 
 module Elf
   # Your code goes here...
