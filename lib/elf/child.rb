@@ -1,5 +1,7 @@
 module Elf
   class Child
+    attr_reader :success
+
     def initialize(cmd)
       @cmd = cmd
     end
@@ -11,17 +13,14 @@ module Elf
       end
     end
 
-    def success
+    def fire_success
       puts "Success: #{@cmd}"
       if @success
-        fork do
-          @success.call
-        end
-        ::Process.waitall
+        @success.call
       end
     end
 
-    def error
+    def fire_error
       puts "Failed: #{@cmd}"
     end
 
@@ -30,8 +29,11 @@ module Elf
       fork_pid = ::Process.fork do
         exec @cmd
       end
+      fake = fork{ "sleep 10" }
       pid, @status = ::Process.waitpid2(fork_pid)
-      @status.exitstatus == 0 ? success : error
+      @status.exitstatus == 0 ? fire_success : fire_error
+      ::Process.kill(9, fake) rescue nil
+      ::Process.waitall
     end
   end
 end

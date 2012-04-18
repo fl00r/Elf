@@ -5,7 +5,7 @@ module Elf
     # We can't use Thread's here. because the don't work :)
     #
     def fire
-      fork do
+      pid = fork do
         super
       end
     end
