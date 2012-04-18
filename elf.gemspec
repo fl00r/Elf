@@ -2,7 +2,7 @@
 require File.expand_path('../lib/elf/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["fl00r"]
+  gem.authors       = ["Petr Yanovich"]
   gem.email         = ["fl00r@yandex.ru"]
   gem.description   = %q{Elves are creatures to manage background processes}
   gem.summary       = %q{Elves are creatures to manage background processes}
