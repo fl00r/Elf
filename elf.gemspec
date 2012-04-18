@@ -4,8 +4,8 @@ require File.expand_path('../lib/elf/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["fl00r"]
   gem.email         = ["fl00r@yandex.ru"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Elves are creatures to manage background processes}
+  gem.summary       = %q{Elves are creatures to manage background processes}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
