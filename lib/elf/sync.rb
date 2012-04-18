@@ -1,4 +1,4 @@
-module Elf::Process
+module Elf
   class Sync < Child
 
   end

@@ -1,4 +1,4 @@
-module Elf::Process
+module Elf
   class Child
     def initialize(cmd)
       @cmd = cmd
