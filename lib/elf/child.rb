@@ -28,7 +28,14 @@ module Elf
     def fire
       puts "Fired: #{@cmd} # #{@comment}"
       fork_pid = ::Process.fork do
-        exec @cmd
+        case @cmd
+        when String
+          exec @cmd
+        when Symbol
+          send @cmd
+        when Array
+          send @cmd[0], *@cmd[1..-1]
+        end
       end
       fake = fork{ "sleep 10" }
       pid, @status = ::Process.waitpid2(fork_pid)

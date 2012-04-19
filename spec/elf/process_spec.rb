@@ -119,4 +119,24 @@ describe Elf::Process do
     end
     (Time.now-start).to_i.must_equal(4)
   end
+
+  it "should run Ruby method in background" do
+    start = Time.now
+    Elf::Process.new do |elf|
+      elf.fork([:sleep, 1], "async sleep")
+      elf.fork([:sleep, 1], "async sleep")
+      elf.fork([:sleep, 1], "async sleep")
+    end
+    (Time.now-start).to_i.must_equal(1)
+  end
+
+  it "should run Ruby method in background" do
+    start = Time.now
+    Elf::Process.new do |elf|
+      elf.sync([:sleep, 1], "async sleep")
+      elf.fork([:sleep, 1], "async sleep")
+      elf.fork([:sleep, 1], "async sleep")
+    end
+    (Time.now-start).to_i.must_equal(2)
+  end
 end
