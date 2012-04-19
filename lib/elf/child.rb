@@ -2,8 +2,9 @@ module Elf
   class Child
     attr_reader :success
 
-    def initialize(cmd)
+    def initialize(cmd, comment)
       @cmd = cmd
+      @comment = comment
     end
 
     def on_success(&blk)
@@ -14,18 +15,18 @@ module Elf
     end
 
     def fire_success
-      puts "Success: #{@cmd}"
+      puts "Success: #{@cmd} # #{@comment}"
       if @success
         @success.call
       end
     end
 
     def fire_error
-      puts "Failed: #{@cmd}"
+      puts "Failed: #{@cmd} # #{@comment}"
     end
 
     def fire
-      puts "Fired: #{@cmd}"
+      puts "Fired: #{@cmd} # #{@comment}"
       fork_pid = ::Process.fork do
         exec @cmd
       end

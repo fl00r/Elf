@@ -95,4 +95,28 @@ describe Elf::Process do
     end
     (Time.now-start).to_i.must_equal(6)
   end
+
+  it "should work with sync jobs in success callback" do
+    start = Time.now
+    Elf::Process.new do |elf|
+      elf.fork("sleep 1", "first async") do |f|
+        f.on_success do
+          elf.sync("sleep 1", "first sync callback")
+          elf.sync("sleep 1", "second sync callback")
+        end
+      end
+      elf.fork("sleep 1", "second async") do |f|
+        f.on_success do
+          elf.fork("sleep 1", "first async callback") do |f1|
+            f1.on_success do
+              elf.fork("sleep 1", "one more async call")
+              elf.sync("sleep 1", "one more sync call")
+            end
+          end
+          elf.fork("sleep 1", "second async callback")
+        end
+      end
+    end
+    (Time.now-start).to_i.must_equal(4)
+  end
 end

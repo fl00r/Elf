@@ -23,7 +23,7 @@ This code will run 4 parallel processes and will work about 10 seconds
 ```ruby
 require 'elf'
 
-Elf::Process.new do |elf|
+Elf.new do |elf|
   elf.fork("sleep 10")
   elf.fork("sleep 10")
   elf.fork("sleep 10")
@@ -36,7 +36,7 @@ And this will run each process one by one
 ```ruby
 require 'elf'
 
-Elf::Process.new do |elf|
+Elf.new do |elf|
   elf.sync("sleep 10")
   elf.sync("sleep 10")
   elf.sync("sleep 10")
@@ -55,7 +55,7 @@ You have got this task:
 3. Then you need to combine all this new data and get new big XML file
 
 ```ruby
-Elf::Process.new do |elf|
+Elf.new do |elf|
   # let's asynchronously download files and after file is downloaded we will start parse it
   elf.fork("wget file1.xml") do |f|
     f.on_success{ elf.fork("rake some_parser_rake_task") }

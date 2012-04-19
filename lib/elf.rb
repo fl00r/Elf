@@ -5,5 +5,5 @@ require "elf/fork"
 require "elf/sync"
 
 module Elf
-  # Your code goes here...
+  
 end
