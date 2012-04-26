@@ -10,12 +10,15 @@ module Elf
 
     def fork(cmd, comment=nil)
       elf = Elf::Fork.new(cmd, comment)
-      yield elf if block_given?
-      @pids << elf.fire
+      fire(elf)
     end
 
     def sync(cmd, comment=nil)
       elf = Elf::Sync.new(cmd, comment)
+      fire(elf)
+    end
+
+    def fire(elf)
       yield elf if block_given?
       @pids << elf.fire
     end
